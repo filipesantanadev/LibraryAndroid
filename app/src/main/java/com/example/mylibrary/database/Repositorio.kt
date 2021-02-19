@@ -5,7 +5,7 @@ import kotlinx.coroutines.delay
 
 class Repositorio {
 
-    val livros = listOf(
+    /*val livros = listOf(
         Livro(
             titulo = "Dom Quixote",
             autor = "Miguel de Acervantes",
@@ -47,5 +47,5 @@ class Repositorio {
                 instance = Repositorio()
             return instance as Repositorio
         }
-    }
+    }*/
 }
