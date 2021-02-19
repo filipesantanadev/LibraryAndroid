@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
+    app:startDestination="@id/listLivroFragment">
+
+    <fragment
+        android:id="@+id/formLivroFragment"
+        android:name="com.example.mylibrary.ui.carro.form.FormLivroFragment"
+        android:label="form_livro_fragment"
+        tools:layout="@layout/form_livro_fragment" />
+    <fragment
+        android:id="@+id/listLivroFragment"
+        android:name="com.example.mylibrary.ui.carro.list.ListLivroFragment"
+        android:label="list_livro_fragment"
+        tools:layout="@layout/list_livro_fragment" />
+    <fragment
+        android:id="@+id/showLivroFragment"
+        android:name="com.example.mylibrary.ui.carro.show.ShowLivroFragment"
+        android:label="show_livro_fragment"
+        tools:layout="@layout/show_livro_fragment" />
+</navigation>
