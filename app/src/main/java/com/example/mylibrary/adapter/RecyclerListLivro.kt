@@ -1,6 +1,7 @@
 package com.example.mylibrary.adapter
 
 import android.graphics.BitmapFactory
+import android.net.Uri
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -12,14 +13,14 @@ import com.example.mylibrary.R
 import com.example.mylibrary.model.Livro
 import com.google.firebase.storage.FirebaseStorage
 import kotlinx.android.synthetic.main.recycler_list_livro.view.*
+import java.io.File
 
 class RecyclerListLivro(
     private val livros: List<Livro>,
     private val actionClick: (Livro) -> Unit
 ) : RecyclerView.Adapter<RecyclerListLivro.LivroViewHolder>() {
 
-    class LivroViewHolder(itemView: View)
-        : RecyclerView.ViewHolder(itemView) {
+    class LivroViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val textTitulo: TextView = itemView.textViewListLivroTitulo
         val textAutor: TextView = itemView.textViewListLivroAutor
         val textGenero: TextView = itemView.textViewListLivroGenero
@@ -41,7 +42,8 @@ class RecyclerListLivro(
         holder.textTitulo.text = livro.titulo
         holder.textAutor.text = livro.autor
         holder.textGenero.text = livro.generos
-        downloadImageLivro(livro.isbn, holder.imageFoto)
+        //holder.imageFoto.setImageBitmap()
+        //downloadImageLivro(livro.isbn, holder.imageFoto)
 
         holder.itemView.setOnClickListener {
             actionClick(livro)
@@ -50,22 +52,23 @@ class RecyclerListLivro(
 
     override fun getItemCount(): Int = livros.size
 
-    private fun downloadImageLivro(
-        isbn: String, imageView: ImageView) {
+    /*private fun downloadImageLivro(
+        isbn: String, imageView: ImageView
+    ) {
         val firebaseStorage = FirebaseStorage.getInstance()
         val storageReference = firebaseStorage.reference
         val fileReference = storageReference
             .child("livros/$isbn.png")
-        val task = fileReference.getBytes(1024*1024)
+        val task = fileReference.getBytes(1024 * 1024)
         task
             .addOnSuccessListener {
                 val bitmap = BitmapFactory
                     .decodeByteArray(it, 0, it.size)
                 imageView.setImageBitmap(bitmap)
             }
-            .addOnFailureListener{
+            .addOnFailureListener {
                 Log.i("RecyclerListLivro", "${it.message}")
             }
-    }
+    }*/
 
 }

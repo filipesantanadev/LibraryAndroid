@@ -3,12 +3,15 @@ package com.example.mylibrary.ui.carro.form
 import android.app.Activity
 import android.content.Intent
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.graphics.BitmapRegionDecoder
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.net.toFile
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -17,6 +20,8 @@ import com.example.mylibrary.database.AppDatabase
 import com.example.mylibrary.model.Livro
 import com.example.mylibrary.model.LivroUtil
 import kotlinx.android.synthetic.main.form_livro_fragment.*
+import java.io.File
+import java.io.FileOutputStream
 
 class FormLivroFragment : Fragment() {
 
@@ -49,9 +54,9 @@ class FormLivroFragment : Fragment() {
                 ).show()
         }
 
-        formLivroViewModel.imagemLivro.observe(viewLifecycleOwner) { uri ->
-            if (uri != null)
-                imageViewFormLivroFoto.setImageURI(uri)
+        formLivroViewModel.imagemLivro.observe(viewLifecycleOwner) {
+            if (it != null)
+                imageViewFormLivroFoto.setImageURI(it)
         }
 
         val view = inflater.inflate(R.layout.form_livro_fragment, container, false)
@@ -81,14 +86,14 @@ class FormLivroFragment : Fragment() {
         }
     }
 
-    private fun preencherFormulario(livro: Livro) {
+    private fun preencherFormulario(livro: Livro){
         editTextFormLivroTitulo.setText(livro.titulo)
         editTextFormLivroAutores.setText(livro.autor)
         editTextFormLivroEditora.setText(livro.editora)
         editTextFormLivroGeneros.setText(livro.generos)
         editTextFormLivroISBN.setText(livro.isbn)
         editTextFormLivroAnoLancamento.setText(livro.anoLancamento)
-        formLivroViewModel.downloadImageLivro(livro.isbn)
+        //formLivroViewModel.setImagemLivro()
 
         btnFormSalvar.text = "Atualizar"
     }
@@ -99,6 +104,12 @@ class FormLivroFragment : Fragment() {
         intent.addCategory(Intent.CATEGORY_OPENABLE)
         startActivityForResult(intent, 1)
     }
+
+    /*private fun lerConteudoArquivo(foto: Bitmap) {
+        val fis = requireActivity().openFileInput(foto.toString())
+        val conteudo = fis.bufferedReader().readText()
+        imageViewFormLivroFoto.setImageBitmap(foto)
+    }*/
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
